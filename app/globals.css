@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 全局样式 - Apple 风格 */
+body {
+  background-color: #F5F5F7; /* 使用苹果的浅灰色背景 */
+  color: #1c1c1e; /* 深色文字 */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 移动端性能优化 */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+}
+
+/* 隐藏滚动条但保持功能 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 玻璃拟态效果 - 更接近 iOS/macOS 风格 */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.glass-dark {
+  background: rgba(50, 50, 50, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 平滑过渡 - 移动端优化 */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* 移动端禁用过渡以提升性能 */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    transition-duration: 0ms;
+  }
+
+  /* 仅保留关键动画 */
+  .important-transition {
+    transition-duration: 150ms !important;
+  }
+}
+
+/* 移动端滚动优化 */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+}
+
+/* 禁用点击高亮 - 全局 */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 允许文本选择 */
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* 性能优化 - GPU 加速 */
+.gpu-accelerate {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* 移动端滚动性能优化 */
+@supports (-webkit-overflow-scrolling: touch) {
+  .scroll-container,
+  [style*="overflow"] {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 减少重绘 */
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* 移动端优化 - 减少复杂阴影 */
+@media (hover: none) and (pointer: coarse) {
+  .shadow-xl,
+  .shadow-2xl,
+  .shadow-lg {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .drop-shadow-lg,
+  .drop-shadow-xl,
+  .drop-shadow-2xl {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)) !important;
+  }
+}
+
+/* 移动端输入框优化 */
+input[type="text"],
+input[type="search"] {
+  font-size: 16px; /* 防止 iOS 自动缩放 */
+}
